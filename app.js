@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
+const { ObjectId } = require('mongodb')
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const uri = "mongodb+srv://ksouthern:qXuBaSIps6SmXYum@cluster0.3urpnpb.mongodb.net/?retryWrites=true&w=majority";
 
@@ -25,10 +26,35 @@ async function run() {
     await client.close();
   }
 }
-run().catch(console.dir);
+//run().catch(console.dir);
 
+async function cxnDB(){
 
+  try{
+    client.connect; 
+    const collection = client.db("kaibrys-papa-database").collection("dev-profiles");
+    // const collection = client.db("papa").collection("dev-profiles");
+    const result = await collection.find().toArray();
+    //const result = await collection.findOne(); 
+    console.log("cxnDB result: ", result);
+    return result; 
+  }
+  catch(e){
+      console.log(e)
+  }
+  finally{
+    client.close; 
+  }
+}
 
+app.get('/', async (req, res) => {
+
+  let result = await cxnDB().catch(console.error); 
+
+  // console.log("get/: ", result);
+  res.send("here for a sec: " + result[0].name);
+  //res.render('index', {  peopleData : result })
+})
 
 
 
