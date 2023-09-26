@@ -1,9 +1,10 @@
+require('dotenv').config()
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
 const { ObjectId } = require('mongodb')
 const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://ksouthern:qXuBaSIps6SmXYum@cluster0.3urpnpb.mongodb.net/?retryWrites=true&w=majority";
+const uri = process.env.MONGO_URI;
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
@@ -93,4 +94,4 @@ app.get('/whatever', function (req, res) {
 })
 
 
-app.listen(4000);
+app.listen(4500);
