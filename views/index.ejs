@@ -1,14 +1,46 @@
- <h1>Hello from index.html</h1>
+<%- include('partials/html-head') %>
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
- 
- <form action="/postClientData" method="POST">
-    <input type="text" id="userName" name="userName" 
-    value="default value"></input>
-
-    <button class="btn btn-primary" type="submit">Submit</button>
+<body class="container-fluid">
 
 
- </form>
- <%= myVariableClient %>
+<div class="row">
+  <div class="col-md-6">
+    <h2>Update your Profile Name</h2>
 
- <% console.log("where am I?") %>
+    <%= console.log(profileData) %>
+    
+    <% for (var i=0; i< profileData.length; i++ ) { %>
+      <form method="POST">  
+        <input type="hidden" id="devId" name="devId" value="<%= profileData[i]._id %>"></input>
+        <input type="text" id="devName" name="devName" value="<%= profileData[i].name %>"></input>
+        <br></br>
+        <button class="btn btn-primary" type="submit" formaction="/updateProfile">Update Dev Name</button>
+        <button class="btn btn-danger" type="submit" formaction="/deleteProfile">Delete Dev Name </button>
+      
+      </form>
+      <br/>
+      <% } %> 
+  </div>
+
+
+  <div class="col-md-6">
+
+  <h2> Add a New Developer </h2>
+
+    <form action="/insertProfile" method="POST">
+                
+      <input type="text" id="newDevName" name="newDevName" placeholder="New dev name here"></input>
+      <br></br>
+
+      <button class="btn btn-success" type="submit">Insert New Dev Name</button>
+
+    </form>
+
+  </div>
+</div>
+
+
+</body>
+</html>
